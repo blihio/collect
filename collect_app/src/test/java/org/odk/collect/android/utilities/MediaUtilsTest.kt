@@ -91,4 +91,50 @@ class MediaUtilsTest {
         )
         assertThat(intentCaptor.firstValue.type, `is`("image/*"))
     }
+
+    @Test
+    fun `#isImageFile returns false when MIME type cannot be resolved`() {
+        val file = File("external-result.xlint_unknown_mime_83af")
+        assertThat(FileUtils.getMimeType(file), `is`(org.hamcrest.CoreMatchers.nullValue()))
+
+        assertThat(mediaUtils.isImageFile(file), `is`(false))
+    }
+
+    @Test
+    fun `#isAudioFile returns false when MIME type cannot be resolved`() {
+        val file = File("external-result.xlint_unknown_mime_83af")
+        assertThat(FileUtils.getMimeType(file), `is`(org.hamcrest.CoreMatchers.nullValue()))
+
+        assertThat(mediaUtils.isAudioFile(file), `is`(false))
+    }
+
+    @Test
+    fun `#isVideoFile returns false when MIME type cannot be resolved`() {
+        val file = File("external-result.xlint_unknown_mime_83af")
+        assertThat(FileUtils.getMimeType(file), `is`(org.hamcrest.CoreMatchers.nullValue()))
+
+        assertThat(mediaUtils.isVideoFile(file), `is`(false))
+    }
+
+    @Test
+    fun `#isImageFile returns true for a known image extension`() {
+        assertThat(mediaUtils.isImageFile(File("image.jpg")), `is`(true))
+    }
+
+    @Test
+    fun `#isAudioFile returns true for a known audio extension`() {
+        assertThat(mediaUtils.isAudioFile(File("audio.mp3")), `is`(true))
+    }
+
+    @Test
+    fun `#isVideoFile returns true for a known video extension`() {
+        assertThat(mediaUtils.isVideoFile(File("video.mp4")), `is`(true))
+    }
+
+    @Test
+    fun `media type checks return false for a different media type`() {
+        assertThat(mediaUtils.isImageFile(File("audio.mp3")), `is`(false))
+        assertThat(mediaUtils.isAudioFile(File("video.mp4")), `is`(false))
+        assertThat(mediaUtils.isVideoFile(File("image.jpg")), `is`(false))
+    }
 }

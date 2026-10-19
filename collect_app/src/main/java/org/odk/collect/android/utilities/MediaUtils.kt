@@ -92,14 +92,14 @@ class MediaUtils(private val intentLauncher: IntentLauncher, private val content
     }
 
     fun isVideoFile(file: File): Boolean {
-        return FileUtils.getMimeType(file).startsWith("video")
+        return FileUtils.getMimeType(file)?.startsWith("video") == true
     }
 
     fun isImageFile(file: File): Boolean {
-        return FileUtils.getMimeType(file).startsWith("image")
+        return FileUtils.getMimeType(file)?.startsWith("image") == true
     }
 
     fun isAudioFile(file: File): Boolean {
-        return FileUtils.getMimeType(file).startsWith("audio")
+        return FileUtils.getMimeType(file)?.startsWith("audio") == true
     }
 }
